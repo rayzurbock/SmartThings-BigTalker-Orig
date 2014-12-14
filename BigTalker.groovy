@@ -2,6 +2,7 @@
  *  Big Talker  -- Version 1.0.0
  *  Copyright 2014 brian@rayzurbock.com
  *  For the latest version and test releases visit http://www.github.com/rayzurbock
+ *  Donations accepted via Paypal, but not required - rayzur@rayzurbock.com
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
