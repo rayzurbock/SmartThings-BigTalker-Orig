@@ -29,3 +29,36 @@ Version: 1.0.0
 # Revision History
 *  12/13/2014 - 1.0.0 - Initial Release
 
+# More Details
+Have you ever wanted a talking house? Now you can! With my Big Talker SmartApp ( http://github.com/rayzurbock/SmartThings-BigTalker )
+
+When SmartThings is paired with a speech synthesis device (such as a Sonos or VLC Thing ( http://community.smartthings.com/t/vlc-thing-a-poor-mans-sonos/5433 )) and my Big Talker SmartApp, your house can say what you want it to say when events occur.
+
+Currently supported events:
+
+* Motion, Active/Inactive
+* Switch, On/Off
+* Presence, Arrive/Depart
+* Lock, Lock/Unlock
+* Contact, Open/Close
+* Mode, Change (Home, Away, etc)
+* Thermostat, Cooling/Heating/Fan/Idle(not running)
+
+Each supported event supports 3 different groups so that you can alter your spoken phrases based on which group your selection of devices is configured in.
+
+Voice phrases support the following variables (to be filled in at runtime)
+
+* %devicename% = Triggering devices display name
+* %devicetype% = Triggering device type; motion, switch, etc...
+* %devicechange% = State change that occurred; on/off, active/inactive, etc...
+* %locationname% = Hub Location name; home, work, etc...
+* %lastmode% = Last home mode; home, away, etc...
+* %mode% = Current home mode; home, away, etc...
+
+For example when turning off a switch named "Office Light" with a spoken phrase of "%devicename% %devicetype% has been turned %devicechange%" would speak "Office light switch has been turned off"
+
+I have a virtual switch that turns on/off all of my Christmas tree's and interior Christmas lights. I configured Big Talker's switch event for Group 1 with this virtual switch and when turned on to speak "Merry Christmas". The family loves it!
+
+Keep in mind, if you configure highly active or too many devices, it may get annoying!! We had a family gathering tonight and the kids kept going in/out the back door to play in the yard. "Back Door has been opened, Back Door has been closed, Back Door has been opened, you get the idea." I wouldn't configure chatty motion sensors either, but that's up to you.
+
+Have Fun!
