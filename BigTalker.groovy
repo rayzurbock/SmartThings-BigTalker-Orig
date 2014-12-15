@@ -1,5 +1,5 @@
 /**
- *  Big Talker  -- Version 1.0.1-beta3
+ *  Big Talker  -- Version 1.0.1-beta4
  *  Copyright 2014 brian@rayzurbock.com
  *  For the latest version and test releases visit http://www.github.com/rayzurbock
  *  Donations accepted via Paypal, but not required - rayzur@rayzurbock.com
@@ -1012,7 +1012,7 @@ def Talk(phrase, customSpeechDevice, evt){
             //Use Custom Speech Device for this event
             def currentTrack = customSpeechDevice.currentState("trackData").jsonValue
             LOGDEBUG("Talk(${customSpeechDevice.displayName}): ${phrase}")
-            customSpeechDevice.playText(state.TalkPhrase)
+            customSpeechDevice.playText(phrase)
             if (currentTrack.status == 'playing') {
                 LOGDEBUG("Resuming play")
                 cusomSpeechDevice.playTrack(currentTrack)
@@ -1021,7 +1021,7 @@ def Talk(phrase, customSpeechDevice, evt){
             //Use Default Speech Device
             def currentTrack = settings.speechDeviceDefault.currentState("trackData").jsonValue
             LOGDEBUG("Talk(${settings.speechDeviceDefault.displayName}): ${phrase}")
-            settings.speechDeviceDefault.playText(state.TalkPhrase)
+            settings.speechDeviceDefault.playText(phrase)
             if (currentTrack.status == 'playing') {
                 LOGDEBUG("Resuming play")
                 state.speechDeviceDefault.playTrack(currentTrack)
@@ -1037,5 +1037,5 @@ def LOGTRACE(txt){
     log.trace("BIGTALKER | ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.0.1-beta3"
+    state.appversion = "1.0.1-beta4"
 }
