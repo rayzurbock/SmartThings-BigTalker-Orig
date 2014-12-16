@@ -1,5 +1,5 @@
 /**
- *  Big Talker  -- Version 1.0.1-Beta6
+ *  Big Talker  -- Version 1.0.1-Beta7
  *  Copyright 2014 brian@rayzurbock.com
  *  For the latest version and test releases visit http://www.github.com/rayzurbock
  *  Donations accepted via Paypal, but not required - rayzur@rayzurbock.com
@@ -1006,39 +1006,43 @@ def processPhraseVariables(phrase, evt){
 }
 
 def Talk(phrase, customSpeechDevice, evt){
+    def currentSpeechDevices = []
     if (!(phrase == null)) {
         phrase = processPhraseVariables(phrase, evt)
         if (!(customSpeechDevice == null)) {
-            //Use Custom Speech Device for this event
-            def currentStatus = customSpeechDevice.currentValue("status")
-            def currentTrack = customSpeechDevice.currentState("trackData")?.jsonValue
-            def currentVolume = customSpeechDevice.currentState("level")?.integerValue
-            LOGDEBUG("Talk(${customSpeechDevice.displayName}): ${phrase}")
-            LOGDEBUG("Volume level(s): ${currentVolume}")
-            LOGDEBUG("Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
-            if (currentTrack.status == 'playing') {
-                LOGDEBUG("Resuming play")
-                customSpeechDevice.playTextAndRestore(phrase)
-            } else
-            {
-                LOGDEBUG("currentTrack=${currentTrack.status}")
-                customSpeechDevice.playTextAndRestore(phrase) //Let's just call playTextAndRestore() anyway
-            }
+            currentSpeechDevices = customSpeechDevice
         } else {
             //Use Default Speech Device
-            def currentStatus = settings.speechDeviceDefault.currentValue("status")
-            def currentTrack = settings.speechDeviceDefault.currentState("trackData")?.jsonValue
-            def currentVolume = settings.speechDeviceDefault.currentState("level")?.integerValue
-            LOGDEBUG("Talk(${settings.speechDeviceDefault.displayName}): ${phrase}")
-            LOGDEBUG("Volume level(s): ${currentVolume}")
-            LOGDEBUG("Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
-            if (currentTrack.status == 'playing') {
-                LOGDEBUG("Resuming play")
-                settings.speechDeviceDefault.playTextAndRestore(phrase)
-            } else
-            {
-                LOGDEBUG("currentTrack=${currentTrack}")
-                settings.speechDeviceDefault.playTextAndRestore(phrase) //Let's just call playTextAndRestore() anyway
+            currentSpeechDevices = settings.speechDeviceDefault
+        }
+        //Iterate Speech Devices and talk
+        LOGDEBUG("TALK >> ${phrase}")
+        currentSpeechDevices.each(){
+            def currentStatus = it.currentValue("status")
+            def currentTrack = it.currentState("trackData")?.jsonValue
+            def currentVolume = it.currentState("level")?.integerValue ? it.currentState("level")?.integerValue : 0
+            LOGDEBUG("${it.displayName} | Volume: ${currentVolume}")
+            if (!(currentTrack == null)){
+                //currentTrack has data
+                LOGDEBUG("${it.displayName} | Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
+                if (currentTrack.status == 'playing') {
+                    LOGDEBUG("${it.displayName} | Resuming play. Sending playTextAndResume().")
+                    it.playTextAndResume(phrase)
+                } else
+                {
+                    LOGDEBUG("${it.displayName} | Nothing playing. Sending playTextAndResume()")
+                    it.playTextAndResume(phrase) //Let's just call playTextAndResume() anyway
+                }
+            } else {
+                //currentTrack doesn't have data or is not supported on this device
+                if (currentStatus == "disconnected") {
+                    //VLCThing?
+                    LOGDEBUG("${it.displayName} | VLCThing? | Current Status: ${currentStatus}.")
+                    it.playText(phrase) //VLCThing speaks only part of the phrase if using playTextAndResume() or playTextAndRestore 12/15/2014
+                } else {
+                    LOGDEBUG("${it.displayName} | Current Status: ${currentStatus}. Sending playTextAndRestore().")
+                    it.playTextAndResume(phrase) //Let's just call playTextAndRestore() anyway
+                }
             }
         }
     }
@@ -1051,5 +1055,5 @@ def LOGTRACE(txt){
     log.trace("BIGTALKER | ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.0.1-Beta6"
+    state.appversion = "1.0.1-Beta7"
 }
