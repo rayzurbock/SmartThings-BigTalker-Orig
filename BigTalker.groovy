@@ -1,5 +1,5 @@
 /**
- *  Big Talker  -- Version 1.0.1-Beta5
+ *  Big Talker  -- Version 1.0.1-Beta6
  *  Copyright 2014 brian@rayzurbock.com
  *  For the latest version and test releases visit http://www.github.com/rayzurbock
  *  Donations accepted via Paypal, but not required - rayzur@rayzurbock.com
@@ -1010,21 +1010,35 @@ def Talk(phrase, customSpeechDevice, evt){
         phrase = processPhraseVariables(phrase, evt)
         if (!(customSpeechDevice == null)) {
             //Use Custom Speech Device for this event
-            def currentTrack = customSpeechDevice.currentState("trackData").jsonValue
+            def currentStatus = customSpeechDevice.currentValue("status")
+            def currentTrack = customSpeechDevice.currentState("trackData")?.jsonValue
+            def currentVolume = customSpeechDevice.currentState("level")?.integerValue
             LOGDEBUG("Talk(${customSpeechDevice.displayName}): ${phrase}")
-            customSpeechDevice.playText(phrase)
+            LOGDEBUG("Volume level(s): ${currentVolume}")
+            LOGDEBUG("Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
             if (currentTrack.status == 'playing') {
                 LOGDEBUG("Resuming play")
-                customSpeechDevice.playTrack(currentTrack)
+                customSpeechDevice.playTextAndRestore(phrase)
+            } else
+            {
+                LOGDEBUG("currentTrack=${currentTrack.status}")
+                customSpeechDevice.playTextAndRestore(phrase) //Let's just call playTextAndRestore() anyway
             }
         } else {
             //Use Default Speech Device
-            def currentTrack = settings.speechDeviceDefault.currentState("trackData").jsonValue
+            def currentStatus = settings.speechDeviceDefault.currentValue("status")
+            def currentTrack = settings.speechDeviceDefault.currentState("trackData")?.jsonValue
+            def currentVolume = settings.speechDeviceDefault.currentState("level")?.integerValue
             LOGDEBUG("Talk(${settings.speechDeviceDefault.displayName}): ${phrase}")
-            settings.speechDeviceDefault.playText(phrase)
+            LOGDEBUG("Volume level(s): ${currentVolume}")
+            LOGDEBUG("Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
             if (currentTrack.status == 'playing') {
                 LOGDEBUG("Resuming play")
-                settings.speechDeviceDefault.playTrack(currentTrack)
+                settings.speechDeviceDefault.playTextAndRestore(phrase)
+            } else
+            {
+                LOGDEBUG("currentTrack=${currentTrack}")
+                settings.speechDeviceDefault.playTextAndRestore(phrase) //Let's just call playTextAndRestore() anyway
             }
         }
     }
@@ -1037,5 +1051,5 @@ def LOGTRACE(txt){
     log.trace("BIGTALKER | ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.0.1-Beta5"
+    state.appversion = "1.0.1-Beta6"
 }
