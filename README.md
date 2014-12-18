@@ -12,7 +12,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #Description
 Big Talker is a SmartApp that can make your house talk depending on various triggered events. <br />
 Pair with any SmartThings compatible speech synthesis audio device such as Sonos, VLC Thing on your computer or Raspberry Pi! <br />
-Version: 1.0.0
+Version: 1.0.1-Beta6
 
 #Installation
 1. Login at <a href=http://graph.api.smartthings.com>http://graph.api.smartthings.com</a>
@@ -29,6 +29,7 @@ Version: 1.0.0
 
 # Revision History
 *  12/13/2014 - 1.0.0 - Initial Release
+*  12/17/2014 - 1.0.1 - Sonos Support corrected. Resume playback after speaking (not supported for VLC-Thing until the Device Type supports it), Corrected custom speech device save for Switch events, general cleanup.  More event support to come in new releases soon. Special thanks to SmartThings community member Greg for help with testing Sonos functionality and making this release possible.
 
 # More Details
 Have you ever wanted a talking house? Now you can! With my Big Talker SmartApp ( http://github.com/rayzurbock/SmartThings-BigTalker )

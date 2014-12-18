@@ -1,5 +1,5 @@
 /**
- *  Big Talker  -- Version 1.0.0
+ *  Big Talker  -- Version 1.0.1
  *  Copyright 2014 brian@rayzurbock.com
  *  For the latest version and test releases visit http://www.github.com/rayzurbock
  *  Donations accepted via Paypal, but not required - rayzur@rayzurbock.com
@@ -21,9 +21,9 @@ definition(
     author: "brian@rayzurbock.com",
     description: "Let's talk about mode changes, switches, motions, and so on.",
     category: "Fun & Social",
-    iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
-    iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
-    iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+    iconUrl: "http://rayzurbock.com/ST/icons/BigTalker.png",
+    iconX2Url: "http://rayzurbock.com/ST/icons/BigTalker@2x.png",
+    iconX3Url: "http://rayzurbock.com/ST/icons/BigTalker@2x.png")
 
 
 preferences {
@@ -540,7 +540,8 @@ def pageConfigure(){
     if (state.installed == null) { state.installed = false }
     dynamicPage(name: "pageConfigure", title: "Configure", install: true, uninstall: state.installed) {
         section ("Talk with:"){
-            input "speechDeviceDefault", "capability.speechSynthesis", title: "Talk with these text-to-speech devices (default)", multiple: true, required: true, refreshAfterSelection:true
+            //input "speechDeviceDefault", "capability.speechSynthesis", title: "Talk with these text-to-speech devices (default)", multiple: true, required: false, refreshAfterSelection: true
+            input "speechDeviceDefault", "capability.musicPlayer", title: "Talk with these text-to-speech devices (default)", multiple: true, required: true, refreshAfterSelection: true
         }
         section("Talk on events:") {
             href "pageConfigMotion", title:"Motion", description:"Tap to configure"
@@ -595,13 +596,13 @@ def pageConfigSwitch(){
             input name: "switchDeviceGroup2", type: "capability.switch", title: "Switch(es)", required: false, multiple: true
             input name: "switchTalkOn2", type: "text", title: "Say this when switch is turned ON:", required: false
             input name: "switchTalkOff2", type: "text", title: "Say this when switch is turned OFF:", required: false
-            input name: "switchSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "switchSpeechDevice2", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Switch Group 3"){
             input name: "switchDeviceGroup3", type: "capability.switch", title: "Switch(es)", required: false, multiple: true
             input name: "switchTalkOn3", type: "text", title: "Say this when switch is turned ON:", required: false
             input name: "switchTalkOff3", type: "text", title: "Say this when switch is turned OFF:", required: false
-            input name: "switchSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "switchSpeechDevice3", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
     }
 //End pageConfigSwitch()
@@ -787,29 +788,13 @@ def processMotionEvent(index, evt){
         if (index == 1) { state.TalkPhrase = settings.motionTalkActive1; state.speechDevice = motionSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.motionTalkActive2; state.speechDevice = motionSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.motionTalkActive3; state.speechDevice = motionSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "inactive") {
         if (index == 1) { state.TalkPhrase = settings.motionTalkInactive1; state.speechDevice = motionSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.motionTalkInactive2; state.speechDevice = motionSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.motionTalkInactive3; state.speechDevice = motionSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     state.TalkPhrase = null
     state.speechDevice = null
@@ -834,29 +819,13 @@ def processSwitchEvent(index, evt){
         if (index == 1) { state.TalkPhrase = settings.switchTalkOn1; state.speechDevice = switchSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.switchTalkOn2; state.speechDevice = switchSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.switchTalkOn3; state.speechDevice = switchSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "off") {
         if (index == 1) { state.TalkPhrase = settings.switchTalkOff1; state.speechDevice = switchSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.switchTalkOff2; state.speechDevice = switchSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.switchTalkOff3; state.speechDevice = switchSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     state.TalkPhrase = null
     state.speechDevice = null
@@ -882,29 +851,13 @@ def processPresenceEvent(index, evt){
         if (index == 1) { state.TalkPhrase = settings.presTalkOnArrive1; state.speechDevice = presSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.presTalkOnArrive2; state.speechDevice = presSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.presTalkOnArrive3; state.speechDevice = presSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "not present") {
         if (index == 1) { state.TalkPhrase = settings.presTalkOnLeave1; state.speechDevice = presSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.presTalkOnLeave2; state.speechDevice = presSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.presTalkOnLeave3; state.speechDevice = presSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     state.TalkPhrase = null
     state.speechDevice = null
@@ -931,29 +884,13 @@ def processLockEvent(index, evt){
         if (index == 1) { state.TalkPhrase = settings.lockTalkOnLock1; state.speechDevice = lockSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.lockTalkOnLock2; state.speechDevice = lockSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.lockTalkOnLock3; state.speechDevice = lockSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "unlocked") {
         if (index == 1) { state.TalkPhrase = settings.lockTalkOnUnlock1; state.speechDevice = lockSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.lockTalkOnUnlock2; state.speechDevice = lockSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.lockTalkOnUnlock3; state.speechDevice = lockSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     state.TalkPhrase = null
     state.speechDevice = null
@@ -979,29 +916,13 @@ def processContactEvent(index, evt){
         if (index == 1) { state.TalkPhrase = settings.contactTalkOnOpen1; state.speechDevice = contactSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.contactTalkOnOpen2; state.speechDevice = contactSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.contactTalkOnOpen3; state.speechDevice = contactSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "closed") {
         if (index == 1) { state.TalkPhrase = settings.contactTalkOnClose1; state.speechDevice = contactSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.contactTalkOnClose2; state.speechDevice = contactSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.contactTalkOnClose3; state.speechDevice = contactSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     state.TalkPhrase = null
     state.speechDevice = null
@@ -1022,15 +943,7 @@ def processModeChangeEvent(index, evt){
     state.TalkPhrase = null
     state.speechDevice = null
     state.TalkPhrase = settings.TalkOnModeChange1; state.speechDevice = modePhraseSpeechDevice1
-    if (!(state.TalkPhrase == null)) {
-        state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-        LOGDEBUG("Talk: ${state.TalkPhrase}")
-        if (!(state.speechDevice == null)) {
-            state.speechDevice.speak(state.TalkPhrase)
-        } else {
-            settings.speechDeviceDefault.speak(state.TalkPhrase)
-        }
-    }
+    Talk(state.TalkPhrase, state.speechDevice, evt)
     state.TalkPhrase = null
     state.speechDevice = null
     state.lastMode = location.mode
@@ -1056,57 +969,25 @@ def processThermostatEvent(index, evt){
         if (index == 1) { state.TalkPhrase = settings.thermostatTalkOnIdle1; state.speechDevice = thermostatSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.thermostatTalkOnIdle2; state.speechDevice = thermostatSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.thermostatTalkOnIdle3; state.speechDevice = thermostatSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "heating") {
         if (index == 1) { state.TalkPhrase = settings.thermostatTalkOnHeating1; state.speechDevice = thermostatSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.thermostatTalkOnHeating2; state.speechDevice = thermostatSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.thermostatTalkOnHeating3; state.speechDevice = thermostatSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "cooling") {
         if (index == 1) { state.TalkPhrase = settings.thermostatTalkOnCooling1; state.speechDevice = thermostatSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.thermostatTalkOnCooling2; state.speechDevice = thermostatSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.thermostatTalkOnCooling3; state.speechDevice = thermostatSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
     if (evt.value == "fan only") {
         if (index == 1) { state.TalkPhrase = settings.thermostatTalkOnFan1; state.speechDevice = thermostatSpeechDevice1}
         if (index == 2) { state.TalkPhrase = settings.thermostatTalkOnFan2; state.speechDevice = thermostatSpeechDevice2}
         if (index == 3) { state.TalkPhrase = settings.thermostatTalkOnFan3; state.speechDevice = thermostatSpeechDevice3}
-        if (!(state.TalkPhrase == null)) {
-            state.TalkPhrase = processPhraseVariables(state.TalkPhrase, evt)
-            LOGDEBUG("Talk: ${state.TalkPhrase}")
-            if (!(state.speechDevice == null)) {
-                state.speechDevice.speak(state.TalkPhrase)
-            } else {
-                settings.speechDeviceDefault.speak(state.TalkPhrase)
-            }
-        }
+        Talk(state.TalkPhrase, state.speechDevice, evt)
     }
 
     state.TalkPhrase = null
@@ -1124,12 +1005,55 @@ def processPhraseVariables(phrase, evt){
     return phrase
 }
 
+def Talk(phrase, customSpeechDevice, evt){
+    def currentSpeechDevices = []
+    if (!(phrase == null)) {
+        phrase = processPhraseVariables(phrase, evt)
+        if (!(customSpeechDevice == null)) {
+            currentSpeechDevices = customSpeechDevice
+        } else {
+            //Use Default Speech Device
+            currentSpeechDevices = settings.speechDeviceDefault
+        }
+        //Iterate Speech Devices and talk
+        LOGTRACE("TALK(${evt.name}) >> ${phrase}")
+        currentSpeechDevices.each(){
+            def currentStatus = it.currentValue("status")
+            def currentTrack = it.currentState("trackData")?.jsonValue
+            def currentVolume = it.currentState("level")?.integerValue ? it.currentState("level")?.integerValue : 0
+            LOGDEBUG("${it.displayName} | Volume: ${currentVolume}")
+            if (!(currentTrack == null)){
+                //currentTrack has data
+                LOGTRACE("${it.displayName} | Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
+                if (currentTrack.status == 'playing') {
+                    LOGTRACE("${it.displayName} | Resuming play. Sending playTextAndResume().")
+                    it.playTextAndResume(phrase)
+                } else
+                {
+                    LOGDEBUG("${it.displayName} | Nothing playing. Sending playTextAndResume()")
+                    it.playTextAndResume(phrase) //Let's just call playTextAndResume() anyway
+                }
+            } else {
+                //currentTrack doesn't have data or is not supported on this device
+                if (currentStatus == "disconnected") {
+                    //VLCThing?
+                    LOGTRACE("${it.displayName} | VLCThing? | Current Status: ${currentStatus}.")
+                    it.playText(phrase) //VLCThing speaks only part of the phrase if using playTextAndResume() or playTextAndRestore 12/15/2014
+                } else {
+                    LOGTRACE("${it.displayName} | Current Status: ${currentStatus}. Sending playTextAndRestore().")
+                    it.playTextAndResume(phrase) //Let's just call playTextAndRestore() anyway
+                }
+            }
+        }
+    }
+}
+
 def LOGDEBUG(txt){
-    log.debug("BIGTALKER | ${txt}")
+    // log.debug("BIGTALKER | ${txt}")
 }
 def LOGTRACE(txt){
     log.trace("BIGTALKER | ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.0.0"
+    state.appversion = "1.0.1"
 }
