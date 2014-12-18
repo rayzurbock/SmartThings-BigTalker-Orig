@@ -1016,7 +1016,7 @@ def Talk(phrase, customSpeechDevice, evt){
             currentSpeechDevices = settings.speechDeviceDefault
         }
         //Iterate Speech Devices and talk
-        LOGDEBUG("TALK >> ${phrase}")
+        LOGTRACE("TALK(${evt.name}) >> ${phrase}")
         currentSpeechDevices.each(){
             def currentStatus = it.currentValue("status")
             def currentTrack = it.currentState("trackData")?.jsonValue
@@ -1024,9 +1024,9 @@ def Talk(phrase, customSpeechDevice, evt){
             LOGDEBUG("${it.displayName} | Volume: ${currentVolume}")
             if (!(currentTrack == null)){
                 //currentTrack has data
-                LOGDEBUG("${it.displayName} | Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
+                LOGTRACE("${it.displayName} | Current Status: ${currentStatus}, CurrentTrack: ${currentTrack}, CurrentTrack.Status: ${currentTrack.status}.")
                 if (currentTrack.status == 'playing') {
-                    LOGDEBUG("${it.displayName} | Resuming play. Sending playTextAndResume().")
+                    LOGTRACE("${it.displayName} | Resuming play. Sending playTextAndResume().")
                     it.playTextAndResume(phrase)
                 } else
                 {
@@ -1037,10 +1037,10 @@ def Talk(phrase, customSpeechDevice, evt){
                 //currentTrack doesn't have data or is not supported on this device
                 if (currentStatus == "disconnected") {
                     //VLCThing?
-                    LOGDEBUG("${it.displayName} | VLCThing? | Current Status: ${currentStatus}.")
+                    LOGTRACE("${it.displayName} | VLCThing? | Current Status: ${currentStatus}.")
                     it.playText(phrase) //VLCThing speaks only part of the phrase if using playTextAndResume() or playTextAndRestore 12/15/2014
                 } else {
-                    LOGDEBUG("${it.displayName} | Current Status: ${currentStatus}. Sending playTextAndRestore().")
+                    LOGTRACE("${it.displayName} | Current Status: ${currentStatus}. Sending playTextAndRestore().")
                     it.playTextAndResume(phrase) //Let's just call playTextAndRestore() anyway
                 }
             }
@@ -1049,7 +1049,7 @@ def Talk(phrase, customSpeechDevice, evt){
 }
 
 def LOGDEBUG(txt){
-    log.debug("BIGTALKER | ${txt}")
+    // log.debug("BIGTALKER | ${txt}")
 }
 def LOGTRACE(txt){
     log.trace("BIGTALKER | ${txt}")
