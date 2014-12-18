@@ -21,9 +21,9 @@ definition(
     author: "brian@rayzurbock.com",
     description: "Let's talk about mode changes, switches, motions, and so on.",
     category: "Fun & Social",
-    iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
-    iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
-    iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+    iconUrl: "http://rayzurbock.com/ST/icons/BigTalker.png",
+    iconX2Url: "http://rayzurbock.com/ST/icons/BigTalker@2x.png",
+    iconX3Url: "http://rayzurbock.com/ST/icons/BigTalker@2x.png")
 
 
 preferences {
