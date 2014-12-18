@@ -1,5 +1,5 @@
 /**
- *  Big Talker  -- Version 1.0.1-Beta7
+ *  Big Talker  -- Version 1.0.1
  *  Copyright 2014 brian@rayzurbock.com
  *  For the latest version and test releases visit http://www.github.com/rayzurbock
  *  Donations accepted via Paypal, but not required - rayzur@rayzurbock.com
@@ -1055,5 +1055,5 @@ def LOGTRACE(txt){
     log.trace("BIGTALKER | ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.0.1-Beta7"
+    state.appversion = "1.0.1"
 }
