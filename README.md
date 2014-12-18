@@ -29,12 +29,7 @@ Version: 1.0.1-Beta6
 
 # Revision History
 *  12/13/2014 - 1.0.0 - Initial Release
-*  12/14/2014 - 1.0.1-Beta1 - Fix Sonos Support
-*  12/14/2014 - 1.0.1-Beta2 - Fix custom speech device save under Switch events
-*  12/14/2014 - 1.0.1-Beta3 - Feature Request: Resume playback after speaking (needs testing on a Sonos, I do not have one)
-*  12/14/2014 - 1.0.1-Beta4 - Introduced a bug in 1.0.1-Beta3 that caused the variable to be spoken rather than it's translation.  Resolved in 1.0.1-Beta4
-*  12/15/2014 - 1.0.1-Beta5 - Fixed typo's in Resume playback code.
-*  12/15/2014 - 1.0.1-Beta6 - Changed from playText() to playTextAndRestore(). Added more TALK event debug code for beta testing
+*  12/14/2014 - 1.0.1 - Sonos Support corrected. Resume playback after speaking (not supported for VLC-Thing until the Device Type supports it), Corrected custom speech device save for Switch events, general cleanup.  More event support to come in new releases soon.
 
 # More Details
 Have you ever wanted a talking house? Now you can! With my Big Talker SmartApp ( http://github.com/rayzurbock/SmartThings-BigTalker )
