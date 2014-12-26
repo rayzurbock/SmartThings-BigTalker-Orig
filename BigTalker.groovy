@@ -1,5 +1,5 @@
 /**
- *  Big Talker  -- Version 1.0.1
+ *  Big Talker  -- Version 1.0.2
  *  Copyright 2014 brian@rayzurbock.com
  *  For the latest version and test releases visit http://www.github.com/rayzurbock
  *  Donations accepted via Paypal, but not required - rayzur@rayzurbock.com
@@ -566,19 +566,19 @@ def pageConfigMotion(){
             input "motionDeviceGroup1", "capability.motionSensor", title: "Motion Sensor(s)", required: false, multiple: true
             input "motionTalkActive1", "text", title: "Say this on motion active:", required: false, defaultValue: "%devicename% is now %devicechange%"
             input "motionTalkInactive1", "text", title: "Say this on motion inactive:", required: false, defaultValue: "%devicename% is now %devicechange%"
-            input "motionSpeechDevice1", "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input "motionSpeechDevice1", "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Motion Sensor Group 2"){
             input "motionDeviceGroup2", "capability.motionSensor", title: "Motion Sensor(s)", required: false, multiple: true
             input "motionTalkActive2", "text", title: "Say this on motion active:", required: false
             input "motionTalkInactive2", "text", title: "Say this on motion inactive:", required: false
-            input "motionSpeechDevice2", "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input "motionSpeechDevice2", "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Motion Sensor Group 3"){
             input "motionDeviceGroup3", "capability.motionSensor", title: "Motion Sensor(s)", required: false, multiple: true
             input "motionTalkActive3", "text", title: "Say this on motion active:", required: false
             input "motionTalkInactive3", "text", title: "Say this on motion inactive:", required: false
-            input "motionSpeechDevice3", "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input "motionSpeechDevice3", "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
     }
 //End pageConfigMotion()
@@ -590,19 +590,19 @@ def pageConfigSwitch(){
             input name: "switchDeviceGroup1", type: "capability.switch", title: "Switch(es)", required: false, multiple: true
             input name: "switchTalkOn1", type: "text", title: "Say this when switch is turned ON:", required: false, defaultValue: "%devicename% is now %devicechange%"
             input name: "switchTalkOff1", type: "text", title: "Say this when switch is turned OFF:", required: false, defaultValue: "%devicename% is now %devicechange%"
-            input name: "switchSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "switchSpeechDevice1", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Switch Group 2"){
             input name: "switchDeviceGroup2", type: "capability.switch", title: "Switch(es)", required: false, multiple: true
             input name: "switchTalkOn2", type: "text", title: "Say this when switch is turned ON:", required: false
             input name: "switchTalkOff2", type: "text", title: "Say this when switch is turned OFF:", required: false
-            input name: "switchSpeechDevice2", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "switchSpeechDevice2", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Switch Group 3"){
             input name: "switchDeviceGroup3", type: "capability.switch", title: "Switch(es)", required: false, multiple: true
             input name: "switchTalkOn3", type: "text", title: "Say this when switch is turned ON:", required: false
             input name: "switchTalkOff3", type: "text", title: "Say this when switch is turned OFF:", required: false
-            input name: "switchSpeechDevice3", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "switchSpeechDevice3", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
     }
 //End pageConfigSwitch()
@@ -614,19 +614,19 @@ def pageConfigPresence(){
             input name: "presDeviceGroup1", type: "capability.presenceSensor", title: "Presence Sensor(s)", required: false, multiple: true
             input name: "presTalkOnArrive1", type: "text", title: "Say this when someone arrives:", required: false, defaultValue: "%devicename% has arrived"
             input name: "presTalkOnLeave1", type: "text", title: "Say this when someone leaves:", required: false, defaultValue: "%devicename% has left"
-            input name: "presSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "presSpeechDevice1", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Presence Group 2"){
             input name: "presDeviceGroup2", type: "capability.presenceSensor", title: "Presence Sensor(s)", required: false, multiple: true
             input name: "presTalkOnArrive2", type: "text", title: "Say this when someone arrives:", required: false
             input name: "presTalkOnLeave2", type: "text", title: "Say this when someone leaves:", required: false
-            input name: "presSpeechDevice2", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "presSpeechDevice2", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Presence Group 3"){
             input name: "presDeviceGroup3", type: "capability.presenceSensor", title: "Presence Sensor(s)", required: false, multiple: true
             input name: "presTalkOnArrive3", type: "text", title: "Say this when someone arrives:", required: false
             input name: "presTalkOnLeave3", type: "text", title: "Say this when someone leaves:", required: false
-            input name: "presSpeechDevice3", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "presSpeechDevice3", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
     }
 //End pageConfigPresence()
@@ -638,19 +638,19 @@ def pageConfigLock(){
             input name: "lockDeviceGroup1", type: "capability.lock", title: "Lock(s)", required: false, multiple: true
             input name: "lockTalkOnUnlock1", type: "text", title: "Say this when unlocked:", required: false, defaultValue: "%devicename% is now %devicechange%"
             input name: "lockTalkOnLock1", type: "text", title: "Say this when locked:", required: false, defaultValue: "%devicename% is now %devicechange%"
-            input name: "lockSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "lockSpeechDevice1", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Lock Group 2"){
             input name: "lockDeviceGroup2", type: "capability.lock", title: "Lock(s)", required: false, multiple: true
             input name: "lockTalkOnUnlock2", type: "text", title: "Say this when unlocked:", required: false
             input name: "lockTalkOnLock2", type: "text", title: "Say this when locked:", required: false
-            input name: "lockSpeechDevice2", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "lockSpeechDevice2", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Lock Group 3"){
             input name: "lockDeviceGroup3", type: "capability.lock", title: "Lock(s)", required: false, multiple: true
             input name: "lockTalkOnUnlock3", type: "text", title: "Say this when unlocked:", required: false
             input name: "lockTalkOnLock3", type: "text", title: "Say this when locked:", required: false
-            input name: "lockSpeechDevice3", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "lockSpeechDevice3", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
     }
 //End pageConfigLock()
@@ -662,19 +662,19 @@ def pageConfigContact(){
             input name: "contactDeviceGroup1", type: "capability.contactSensor", title: "Contact sensor(s)", required: false, multiple: true
             input name: "contactTalkOnOpen1", type: "text", title: "Say this when opened:", required: false, defaultValue: "%devicename% is now %devicechange%"
             input name: "contactTalkOnClose1", type: "text", title: "Say this when closed:", required: false, defaultValue: "%devicename% is now %devicechange%"
-            input name: "contactSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "contactSpeechDevice1", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Contact Group 2"){
             input name: "contactDeviceGroup2", type: "capability.contactSensor", title: "Contact sensor(s)", required: false, multiple: true
             input name: "contactTalkOnOpen2", type: "text", title: "Say this when opened:", required: false
             input name: "contactTalkOnClose2", type: "text", title: "Say this when closed:", required: false
-            input name: "contactSpeechDevice2", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "contactSpeechDevice2", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Contact Group 3"){
             input name: "contactDeviceGroup3", type: "capability.contactSensor", title: "Contact sensor(s)", required: false, multiple: true
             input name: "contactTalkOnOpen3", type: "text", title: "Say this when opened:", required: false
             input name: "contactTalkOnClose3", type: "text", title: "Say this when closed:", required: false
-            input name: "contactSpeechDevice3", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "contactSpeechDevice3", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
     }
 //End pageConfigContact()
@@ -685,7 +685,7 @@ def pageConfigMode(){
         section(){
             input name: "modePhraseGroup1", type: "mode", title: "Home Modes", required: false, multiple: true
             input name: "TalkOnModeChange1", type: "text", title: "Say this when home mode is changed", required: false, defaultValue: "%locationname% mode has changed from %lastmode% to %mode%"
-            input name: "modePhraseSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "modePhraseSpeechDevice1", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
     }
 //End pageConfigMode()
@@ -699,20 +699,20 @@ def pageConfigThermostat(){
             input name: "thermostatTalkOnHeating1", type: "text", title: "Say this on change to heating:", required: false, defaultValue: "%devicename% is now heating"
             input name: "thermostatTalkOnCooling1", type: "text", title: "Say this on change to cooling:", required: false, defaultValue: "%devicename% is now cooling"
             input name: "thermostatTalkOnFan1", type: "text", title: "Say this on change to fan only:", required: false, defaultValue: "%devicename% is now circulating fan"
-            input name: "thermostatSpeechDevice1", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "thermostatSpeechDevice1", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
 /*        
         section("Contact Group 2"){
             input name: "contactDeviceGroup2", type: "capability.contactSensor", title: "Contact sensor(s)", required: false, multiple: true
             input name: "contactTalkOnOpen2", type: "text", title: "Say this when opened:", required: false, defaultValue: "%devicename% is now %devicechange%"
             input name: "contactTalkOnClose2", type: "text", title: "Say this when closed:", required: false, defaultValue: "%devicename% is now %devicechange%"
-            input name: "contactSpeechDevice2", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "contactSpeechDevice2", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
         section("Contact Group 3"){
             input name: "contactDeviceGroup3", type: "capability.contactSensor", title: "Contact sensor(s)", required: false, multiple: true
             input name: "contactTalkOnOpen3", type: "text", title: "Say this when opened:", required: false, defaultValue: "%devicename% is now %devicechange%"
             input name: "contactTalkOnClose3", type: "text", title: "Say this when closed:", required: false, defaultValue: "%devicename% is now %devicechange%"
-            input name: "contactSpeechDevice3", type: "capability.speechSynthesis", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
+            input name: "contactSpeechDevice3", type: "capability.musicPlayer", title: "Talk with these text-to-speech devices (overrides default)", multiple: true, required: false
         }
 */
     }
@@ -1055,5 +1055,5 @@ def LOGTRACE(txt){
     log.trace("BIGTALKER | ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.0.1"
+    state.appversion = "1.0.2"
 }
