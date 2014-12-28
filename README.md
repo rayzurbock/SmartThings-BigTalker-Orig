@@ -68,6 +68,7 @@ Keep in mind, if you configure highly active or too many devices, it may get ann
 
 Have Fun!
 
+<hr>
 # Revision History
 *  12/13/2014 - 1.0.0 - Initial Release
 *  12/17/2014 - 1.0.1 - Sonos Support corrected. Resume playback after speaking (not supported for VLC-Thing until the Device Type supports it), Corrected custom speech device save for Switch events, general cleanup.  More event support to come in new releases soon. Special thanks to SmartThings community member Greg for help with testing Sonos functionality and making this release possible.
