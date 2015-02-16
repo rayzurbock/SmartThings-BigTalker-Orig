@@ -24,15 +24,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #Installation
 1. Login at <a href=http://graph.api.smartthings.com>http://graph.api.smartthings.com</a>
 2. Go to "My SmartApps" section and click on the "+ New SmartApp" button on the right.
-3. On the "New SmartApp" page, fill out mandatory "Name" and "Description" fields (it does not matter what you put there).
+3. On the "New SmartApp" page, Select the Tab "From Code" , Copy the BigTalker source code from GitHub and paste it into the IDE editor window.
 4. Click the "Create" button at the bottom.
-5. When a new app template opens in the IDE, replace the contents with that in the .groovy file here
 6. Click the blue "Save" button above the editor window.
 7. Click the "Publish" button next to it and select "For Me". You have now self-published your SmartApp.
-8. Open SmartThings mobile app on iPhone or Android and go to the Dashboard.
+8. Open SmartThings mobile app and go to the Dashboard.
 9. Tap on the round "+" button and navigate to "My Apps" section by swiping the menu ribbon all the way to the left.
 10. "BigTalker" app should be available in the list of SmartApps that appears below the menu ribbon. Tap it.
-11. Tap Configure to start setting up your talking events.  Setup as many or as few as you like.
+11. Tap Configure to start setting up your talking events.  Setup as many or as few as you like, but try not to setup events that would fire rapidly back to back or they will conflict with each other.
 
 # More Details
 Have you ever wanted a talking house? Now you can! With my Big Talker SmartApp ( http://github.com/rayzurbock/SmartThings-BigTalker )
