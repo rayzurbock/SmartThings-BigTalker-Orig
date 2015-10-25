@@ -1,7 +1,7 @@
 #Description
 Big Talker is a SmartApp for SmartThings that can make your house talk depending on various triggered events. <br />
 Pair with any SmartThings compatible audio device such as Sonos, Ubi and VLC Thing on your computer or Raspberry Pi!  See <b>More Details</b> section below for more features.<br />
-Version: 1.1.1 <br />
+Version: 1.1.2 <br />
 
 #Support the project
  This SmartApp is free. Donations to support development efforts are accepted via:
@@ -108,3 +108,5 @@ Keep in mind, if you configure highly active or too many devices, it may get ann
   * BugFix: Fixed an issue where "Talk Now" would sometimes say the last spoken phrase upon entering the "Talk Now" page.
 *  10/25/2015 - 1.1.1
   * BugFix: Corrected issue with Motion 1 announcement custom time restrictions
+*  10/24/2015 - 1.1.2
+  * BugFix: Corrected issue with setting speech volume. Ensure that Volume is not 0; Set to 75 if it is.
