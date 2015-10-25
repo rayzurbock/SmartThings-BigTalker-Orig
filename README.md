@@ -1,7 +1,7 @@
 #Description
 Big Talker is a SmartApp for SmartThings that can make your house talk depending on various triggered events. <br />
 Pair with any SmartThings compatible audio device such as Sonos, Ubi and VLC Thing on your computer or Raspberry Pi!  See <b>More Details</b> section below for more features.<br />
-Version: 1.1.0 <br />
+Version: 1.1.1 <br />
 
 #Support the project
  This SmartApp is free. Donations to support development efforts are accepted via:
@@ -26,9 +26,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 4. Click the "**Create**" button at the bottom.
 6. Click the blue "**Save**" button above the editor window.
 7. Click the "**Publish**" button next to it and select "**For Me**". You have now self-published your SmartApp.
-8. Open SmartThings mobile app and go to the Dashboard.
-9. Tap on the round "**+**" button and navigate to "**My Apps**" section by swiping the menu ribbon all the way to the left.
-10. "**BigTalker**" app should be available in the list of SmartApps that appears below the menu ribbon. Tap it.
+8. Open SmartThings mobile app and go to the Market Place (star burst icon).
+9. Press "**SmartApps**"
+9. Press "**My Apps**"
+10. "**BigTalker**" app should be available in the list of SmartApps that appears. Tap it.
   * Android users have reported having to logout of the SmartThings app, closing it, and logging back in before new apps will show up.
 11. Tap **Configure** to start setting up your talking events.  Setup as many or as few as you like, but try not to setup events that would fire rapidly back to back or they will conflict with each other.
 
@@ -105,3 +106,5 @@ Keep in mind, if you configure highly active or too many devices, it may get ann
   * BugFix: Fixed an issue where custom talk modes were not checked when using a scheduled Time event.
   * BugFix: Fixed an issue where current day of the week was not calculated properly for a scheduled Time event causing these events to speak on days of the week that were not desired.
   * BugFix: Fixed an issue where "Talk Now" would sometimes say the last spoken phrase upon entering the "Talk Now" page.
+*  10/25/2015 - 1.1.1
+  * BugFix: Corrected issue with Motion 1 announcement custom time restrictions
