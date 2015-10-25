@@ -1,5 +1,5 @@
 /**
- *  BIG TALKER -- Version 1.1.0 -- A SmartApp for SmartThings Home Automation System
+ *  BIG TALKER -- Version 1.1.1 -- A SmartApp for SmartThings Home Automation System
  *  Copyright 2014 - rayzur@rayzurbock.com - Brian S. Lowrance
  *  For the latest version, development and test releases visit http://www.github.com/rayzurbock
  *
@@ -47,7 +47,7 @@ preferences {
     page(name: "pageConfigContact")
     page(name: "pageConfigMode")
     page(name: "pageConfigThermostat")
-    page(name: "pageConfigAcceleration")
+	page(name: "pageConfigAcceleration")
     page(name: "pageConfigWater")
     page(name: "pageConfigSmoke")
     page(name: "pageConfigButton")
@@ -2876,7 +2876,7 @@ def timeAllowed(devicetype,index){
             }
         case "motion":
             if (index == 1 && (!(settings.motionStartTime1 == null))) {
-                if (timeOfDayIsBetween(settings.motionStartTime1, settings.motionEndTime2, now, location.timeZone)) { return true } else { return false }
+                if (timeOfDayIsBetween(settings.motionStartTime1, settings.motionEndTime1, now, location.timeZone)) { return true } else { return false }
             }
             if (index == 2 && (!(settings.motionStartTime2 == null))) {
                 if (timeOfDayIsBetween(settings.motionStartTime2, settings.motionEndTime2, now, location.timeZone)) { return true } else { return false }
@@ -3536,5 +3536,5 @@ def LOGTRACE(txt){
     log.trace("${app.label.replace(" ","").toUpperCase()}(${state.appversion}) || ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.1.0"
+    state.appversion = "1.1.1"
 }
