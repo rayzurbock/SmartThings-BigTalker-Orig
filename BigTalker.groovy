@@ -1,5 +1,5 @@
 /**
- *  BIG TALKER -- Version 1.1.1 -- A SmartApp for SmartThings Home Automation System
+ *  BIG TALKER -- Version 1.1.2 -- A SmartApp for SmartThings Home Automation System
  *  Copyright 2014 - rayzur@rayzurbock.com - Brian S. Lowrance
  *  For the latest version, development and test releases visit http://www.github.com/rayzurbock
  *
@@ -2805,7 +2805,8 @@ def Talk(phrase, customSpeechDevice, evt){
                         if (settings.speechVolume) { 
                             it.playTextAndResume(phrase, settings.speechVolume) 
                         } else { 
-                            it.playTextAndResume(phrase, currentVolume) 
+                            if (currentVolume > 0) { it.playTextAndResume(phrase, currentVolume) }
+                            if (currentVolume == 0) { it.playTextAndResume(phrase, 75) }
                         }
                     } else
                     {
@@ -2813,7 +2814,8 @@ def Talk(phrase, customSpeechDevice, evt){
                         if (settings.speechVolume) { 
                             it.playTextAndRestore(phrase, settings.speechVolume)
                         } else { 
-                            it.playTextAndRestore(phrase, currentVolume)
+                            if (currentVolume > 0) { it.playTextAndRestore(phrase, currentVolume) }
+                            if (currentVolume == 0) { it.playTextAndRestore(phrase, 75) }
                         }
                     }
                 } else {
@@ -2824,7 +2826,8 @@ def Talk(phrase, customSpeechDevice, evt){
                         if (settings.speechVolume) { 
                             it.setLevel(settings.speechVolume)
                             it.playText(phrase)
-                            it.setLevel(currentVolume)
+                            if (currentVolume > 0) {it.setLevel(currentVolume)}
+                            if (currentVolume == 0 ) {it.setLevel(75)}
                         } else { 
                             it.playText(phrase) 
                         }
@@ -2833,7 +2836,8 @@ def Talk(phrase, customSpeechDevice, evt){
                         if (settings.speechVolume) { 
                             it.setLevel(settings.speechVolume)
                             it.playText(phrase)
-                            it.setLevel(currentVolume)
+                            if (currentVolume > 0) {it.setLevel(currentVolume)}
+                            if (currentVolume == 0 ) {it.setLevel(75)}
                         } else { 
                             it.playText(phrase) 
                         }
@@ -3536,5 +3540,5 @@ def LOGTRACE(txt){
     log.trace("${app.label.replace(" ","").toUpperCase()}(${state.appversion}) || ${txt}")
 }
 def setAppVersion(){
-    state.appversion = "1.1.1"
+    state.appversion = "1.1.2"
 }
