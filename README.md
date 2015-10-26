@@ -1,7 +1,7 @@
 #Description
 Big Talker is a SmartApp for SmartThings that can make your house talk depending on various triggered events. <br />
 Pair with any SmartThings compatible audio device such as Sonos, Ubi and VLC Thing on your computer or Raspberry Pi!  See <b>More Details</b> section below for more features.<br />
-Version: 1.1.2 <br />
+Version: 1.1.3 <br />
 
 #Support the project
  This SmartApp is free. Donations to support development efforts are accepted via:
@@ -108,5 +108,9 @@ Keep in mind, if you configure highly active or too many devices, it may get ann
   * BugFix: Fixed an issue where "Talk Now" would sometimes say the last spoken phrase upon entering the "Talk Now" page.
 *  10/25/2015 - 1.1.1
   * BugFix: Corrected issue with Motion 1 announcement custom time restrictions
-*  10/24/2015 - 1.1.2
+*  10/25/2015 - 1.1.2
   * BugFix: Corrected issue with setting speech volume. Ensure that Volume is not 0; Set to 75 if it is.
+*  10/26/2015 - 1.1.3
+  * BugFix: Added additional check in Talk() if using MusicPlayer device, currentTrack = null and currentStatus was "playing" then BT would not "resume", but instead would stop the track, PlayText() and not resume the track.
+  * BugFix: Replaced deprecated "refreshAfterSelection" in dynamic pages with replacement "submitOnChange". This fixes things like TalkNow's expected operation.  
+  * Feature Enhancement: Additional logging added in Talk()
