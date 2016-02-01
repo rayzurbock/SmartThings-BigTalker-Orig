@@ -1,7 +1,10 @@
 #Description
 Big Talker is a SmartApp for SmartThings that can make your house talk depending on various triggered events. <br />
-Pair with any SmartThings compatible audio device such as Sonos, Ubi and VLC Thing on your computer or Raspberry Pi!  See <b>More Details</b> section below for more features.<br />
-Version: 1.1.3 <br />
+
+Pair it with a SmartThings compatible audio device such as Sonos, Ubi, LANnouncer, VLC Thing, or a DLNA device using the "Generic MediaRenderer" SmartApp/Device! <br />  
+See <b>More Details</b> section below for more features.<br />
+
+Version: 1.1.5 <br />
 
 #Support the project
  This SmartApp is free. Donations to support development efforts are accepted via:
@@ -11,7 +14,7 @@ Version: 1.1.3 <br />
 
 #License
 **BIG TALKER -- A SmartApp for SmartThings Home Automation System** <br />
-Copyright 2014 - rayzur [at] rayzurbock.com - Brian S. Lowrance <br />
+Copyright 2014-2016 - rayzur [at] rayzurbock.com - Brian S. Lowrance <br />
 For the latest version, development and test releases visit http://www.github.com/rayzurbock <br />
 <br />
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the  License. You may obtain a copy of the License at: <br/>
@@ -36,7 +39,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 # More Details
 Have you ever wanted a talking house? Now you can! With my Big Talker SmartApp ( http://github.com/rayzurbock/SmartThings-BigTalker )
 
-When SmartThings is paired with a compatible audio device (such as a Sonos, Ubi or VLC Thing ( http://community.smartthings.com/t/vlc-thing-a-poor-mans-sonos/5433 )) and Big Talker SmartApp, your house can say what you want it to say when events occur.
+When SmartThings is paired with a compatible audio device (such as a Sonos, Ubi, LANnouncer(http://www.keybounce.com/LANdroidHowTo/LANdroid.html) or VLC Thing( http://community.smartthings.com/t/vlc-thing-a-poor-mans-sonos/5433 )) and Big Talker SmartApp, your house can say what you want it to say when events occur.
 
 Currently supported events:
 
@@ -64,10 +67,19 @@ Voice phrases support the following variables (to be filled in at runtime)
 * **%lastmode%** = Last home mode; home, away, etc...
 * **%mode%** = Current home mode; home, away, etc...
 * **%time%** = Current time; HH:mm am/pm
+* **%weathercurrent%** = Current weather (from Weather Underground; based on SmartThings Hub Zipcode)
+* **%weathertoday%** = Today's weather forecast (from Weather Underground; based on SmartThings Hub Zipcode)
+* **%weathertonight%** = Tonight's weather forecast (from Weather Underground; based on SmartThings Hub Zipcode)
+* **%weathertomorrow%** = Tomorrow's weather forecast (from Weather Underground; based on SmartThings Hub Zipcode)
+* **%weathercurrent(00000)%** = Current weather (from Weather Underground; using custom Zipcode; replace 00000)
+* **%weathertoday(00000)%** = Today's weather forecast (from Weather Underground; using custom Zipcode; replace 00000)
+* **%weathertonight(00000)%** = Tonight's weather forecast (from Weather Underground; using custom Zipcode; replace 00000)
+* **%weathertomorrow(00000)%** = Tomorrow's weather forecast (from Weather Underground; using custom Zipcode; replace 00000)
+  * (00000) can also be replaced by any supported location of the WeatherUnderground API such as (France/Paris), (latitude,longitude), (AirportCode), (State/City)
 
 For example when turning off a switch named "Office Light" with a spoken phrase of "*%devicename% %devicetype% has been turned %devicechange%*" would speak "*Office light switch has been turned off*"
 
-Keep in mind, if you configure highly active or too many devices, it may get annoying!! We had a family gathering tonight and the kids kept going in/out the back door to play in the yard. "Back Door has been opened, Back Door has been closed, Back Door has been opened, you get the idea." I wouldn't configure chatty motion sensors either, but that's up to you.
+Keep in mind, if you configure highly active or too many devices, it may get annoying!! We had a family gathering and the kids kept going in/out the back door to play in the yard. "Back Door has been opened, Back Door has been closed, Back Door has been opened, you get the idea." I wouldn't configure chatty motion sensors either, but that's up to you.
 
 ***Have Fun!***
 
@@ -114,3 +126,34 @@ Keep in mind, if you configure highly active or too many devices, it may get ann
   * BugFix: Added additional check in Talk() if using MusicPlayer device, currentTrack = null and currentStatus was "playing" then BT would not "resume", but instead would stop the track, PlayText() and not resume the track.
   * BugFix: Replaced deprecated "refreshAfterSelection" in dynamic pages with replacement "submitOnChange". This fixes things like TalkNow's expected operation.  
   * Feature Enhancement: Additional logging added in Talk()
+* 1.1.4 was a development/beta version branch.  These features and bug fixes were rolled into 1.1.5
+* 1/31/2016 - 1.1.5
+  * Metadata Update: Update copyright from 2014 to 2014-2016.
+  * New Feature: poll() or refresh() on Talk() to try to update current status of player. Protect crash using try/catch routines. Delays poll for 2 minutes after any speech event. (mediaPlayer mode only)
+  * New Feature: Added detection of failure to convert text to speech (SmartThings intermittent issue with textToSpeech function), send notification instead so message is not missed.
+  * New Feature: Added new Talk variables %weathercurrent%, %weathertoday%, %weathertonight%, %weathertomorrow%. Can be added to any event.
+  * New Feature: Upon Install or settings update, a poll process will execute every minute to check all configured speech devices for their latest status. This is in an effort to better detect if a device is playing before interrupting to speak. (Note: VLCThing doesn't report 'playing' until after the second poll or 2 minutes into a playlist; others may as well). (mediaPlayer mode only)
+  * New Feature: Added Status page item to show the ZipCode that SmartThings has derived from the hub via Latitude/Longitude.
+  * New Feature: Added Phrase Variables
+    * %weathercurrent% - Current weather
+    * %weathertoday% - Today's weather forecast
+    * %weathertonight% - Tonight's weather forecast
+    * %weathertomorrow% - Tomorrow's weather forecast
+    * %weathercurrent(00000)% = Current weather based on custom zipcode (replace 00000)
+    * %weathertoday(00000)% = Today's weather forecast based on custom zipcode (replace 00000)
+    * %weathertonight(00000)% = Tonight's weather forecast based on custom zipcode (replace 00000)
+    *%weathertomorrow(00000)% = Tomorrow's weather forecast based on custom zipcode (replace 00000)
+    *(00000) can also be replaced by any supported location of the WeatherUnderground API such as (France/Paris), (latitude,longitude), (AirportCode), (State/City)
+  * New Feature: Add adjustWeatherPhrase() function to convert mph to "Miles Per Hour", NNE to "North Northeast", etc..
+  * New Feature: Added "Help" section to each event configuration page with a "Phrase Tokens" option to give the user an In-App reference of the known phrase tokens that can be used.
+  * Feature Modification: Re-write of Talk() to better detect latest playing track and play status (latestValue() instead of currentValue()). (mediaPlayer mode only)
+  * Feature Modification: Modified Start page, About section
+  * Feature Modification: Add LANnouncer into the supported device descriptions for speechSynthesis.
+  * Feature Modification: Remove unsupported Volume setting / function when operating in speechSynthesis mode.
+  * BugFix: Corrected default phrases for Water sensor (Thanks ST Community: Greg) (was using acceleration phrases)
+  * BugFix: Corrected home mode change issue if exclusion was not set (Thanks for the report ST Community: Greg)
+  * BugFix: Resolve an error that is present if both currentTrack and currentStatus return null. "java.lang.NullPointerException: Cannot get property 'status' on null object"
+  * BugFix: Setting changes were not activated when editing within the "Configure Defaults" menu and pressing Done. Settings only activated after editing within the "Configure Events" menu and pressing Done. Resolved.
+  * BugFix: Replace special characters found in phrase (ie: URL tokens) such as those that end up in weather reports which cause LANnouncer to not speak when expected.
+  * BugFix: Fix Talk() routine for speechSynthesis only devices which typically do TTS on the phrase passed to them on their own or within their deviceType.
+  * BugFix: Talk() function has been further optimized and more bugs have been resolved.
