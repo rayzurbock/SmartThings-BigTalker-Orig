@@ -1,5 +1,5 @@
 /**
- *  BIG TALKER -- Version 1.1.5 -- A SmartApp for SmartThings Home Automation System
+ *  BIG TALKER -- Version 1.1.6-Beta1 -- A SmartApp for SmartThings Home Automation System
  *  Copyright 2014-2016 - rayzur@rayzurbock.com - Brian S. Lowrance
  *  For the latest version, development and test releases visit http://www.github.com/rayzurbock
  *
@@ -1657,7 +1657,8 @@ def pageConfigureDefaults(){
         }
         section ("Only between these times:"){
             input "defaultStartTime", "time", title: "Don't talk before: ", required: false, submitOnChange: true
-            input "defaultEndTime", "time", title: "Don't talk after: ", required: (!(settings.defaultStartTime == null)), submitOnChange: true
+            //input "defaultEndTime", "time", title: "Don't talk after: ", required: (!(settings.defaultStartTime == null)), submitOnChange: true
+            input "defaultEndTime", "time", title: "Don't talk after: ", required: ((settings.defaultStartTime != null && settings.defaultStartTime != "") ? true : false), submitOnChange: true
         }
         section(){
             input "debugmode", "bool", title: "Enable debug logging", required: true, defaultValue: false
@@ -2558,7 +2559,7 @@ def onContact1Event(evt){
 def onContact2Event(evt){
     processContactEvent(2, evt)
 }
-def onContactEvent(evt){
+def onContact3Event(evt){
     processContactEvent(3, evt)
 }
 
@@ -2926,7 +2927,7 @@ def processPhraseVariables(phrase, evt){
     if (phrase.contains("10S")) { phrase = phrase.replace("10S","tens") }
     if (phrase.contains("20S")) { phrase = phrase.replace("20S","twenties") }
     if (phrase.contains("30S")) { phrase = phrase.replace("30S","thirties") }
-    if (phrase.contains("40S")) { phrase = phrase.replace("40S","fourties") }
+    if (phrase.contains("40S")) { phrase = phrase.replace("40S","forties") }
     if (phrase.contains("50S")) { phrase = phrase.replace("50S","fifties") }
     if (phrase.contains("60S")) { phrase = phrase.replace("60S","sixties") }
     if (phrase.contains("70S")) { phrase = phrase.replace("70S","seventies") }
@@ -2944,6 +2945,10 @@ def adjustWeatherPhrase(phraseIn){
     phraseOut = phraseOut.replace(" S ", " South ")
     phraseOut = phraseOut.replace(" E ", " East ")
     phraseOut = phraseOut.replace(" W ", " West ")
+    phraseOut = phraseOut.replace(" NE ", " Northeast ")
+    phraseOut = phraseOut.replace(" NW ", " Northwest ")
+    phraseOut = phraseOut.replace(" SE ", " Southeast ")
+    phraseOut = phraseOut.replace(" SW ", " Southwest ")
     phraseOut = phraseOut.replace(" NNE ", " North Northeast ")
     phraseOut = phraseOut.replace(" NNW ", " North Northwest ")
     phraseOut = phraseOut.replace(" SSE ", " South Southeast ")
@@ -3215,7 +3220,8 @@ def timeAllowed(devicetype,index){
     }
     
     //No overrides have returned True, process Default
-    if (settings.defaultStartTime == null) { 
+    //if (settings.defaultStartTime == null) { 
+    if ((settings.defaultStartTime != null && settings.defaultStartTime != "") ? false : true) {
     	return true 
     } else {
         if (timeOfDayIsBetween(settings.defaultStartTime, settings.defaultEndTime, now, location.timeZone)) { return true } else { return false }
@@ -3910,5 +3916,5 @@ def LOGERROR(txt){
 }
 
 def setAppVersion(){
-    state.appversion = "1.1.5"
+    state.appversion = "1.1.6-Beta1"
 }
