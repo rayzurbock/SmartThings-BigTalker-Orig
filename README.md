@@ -1,10 +1,14 @@
+#WARNING: BETA VERSION 
+Bugs may be rampent in beta versions. <br />
+Please report bugs on GitHub at https://github.com/rayzurbock/SmartThings-BigTalker/issues
+
 #Description
 Big Talker is a SmartApp for SmartThings that can make your house talk depending on various triggered events. <br />
 
 Pair it with a SmartThings compatible audio device such as Sonos, Ubi, LANnouncer, VLC Thing, or a DLNA device using the "Generic MediaRenderer" SmartApp/Device! <br />  
 See <b>More Details</b> section below for more features.<br />
 
-Version: 1.1.5 <br />
+Version: 1.1.6-Beta1 <br />
 
 #Support the project
  This SmartApp is free. Donations to support development efforts are accepted via:
@@ -157,3 +161,8 @@ Keep in mind, if you configure highly active or too many devices, it may get ann
   * BugFix: Replace special characters found in phrase (ie: URL tokens) such as those that end up in weather reports which cause LANnouncer to not speak when expected.
   * BugFix: Fix Talk() routine for speechSynthesis only devices which typically do TTS on the phrase passed to them on their own or within their deviceType.
   * BugFix: Talk() function has been further optimized and more bugs have been resolved.
+* 3/18/2016 - 1.1.6-Beta1
+  * BugFix: "Do not talk before", and "Do not talk after" settings on the Configure Defaults page were inadvertently required.
+  * BugFix: Contact group 3 would not work
+  * BugFix: Conversion of "40S" in phrase conversion was pronounced "four ties"
+  * Feature Modification: Added pronunciation conversion in weather reports for directions NE, NW, SE, SW
